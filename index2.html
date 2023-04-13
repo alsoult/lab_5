@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise_2</title>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #content {
+        margin: 30px;
+        padding: 15px;
+        font-family: "Ubuntu", sans-serif;
+        background-color: #e7e7e7;
+        width: fit-content;
+        border-radius: 20px;
+        color: rgba(18, 18, 18, 95%);
+      }
+      .exercise {
+        font-size: 21px;
+        font-weight: 700;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .info {
+        font-size: 21px;
+        padding: 15px;
+        border-radius: 20px;
+        background-color: rgba(202, 202, 202, 80%);
+        margin-bottom: 10px;
+      }
+      .info > div {
+        font-weight: 700;
+        margin-top: 5px;
+      }
+      .info:last-child {
+        margin-bottom: 15px;
+      }
+    </style>
+    <script>
+      let str,
+        emptyLine,
+        countOfWords = 0,
+        countOfSymbols = 0;
+
+      do {
+        emptyLine = false;
+        str = prompt("Введите строку:", "");
+        try {
+          if (str == "") {
+            emptyLine = true;
+            throw new Error(
+              "Поле ввода не содержит значения. Необходимо ввести строку."
+            );
+          }
+          if (str == null) {
+            break;
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      } while (emptyLine);
+
+      if (str == null) {
+        document.write("");
+      } else {
+        let A, B;
+        for (let i = 0; i < str.length; i++) {
+          if (
+            str[i] != " " &&
+            str[i] != "," &&
+            str[i] != "." &&
+            str[i] != "!" &&
+            str[i] != "?" &&
+            str[i] != ";"
+          ) {
+            countOfSymbols++;
+          } else {
+            if (countOfSymbols > 5) {
+              countOfWords++;
+            }
+            countOfSymbols = 0;
+          }
+        }
+        if (countOfSymbols > 5) {
+          countOfWords++;
+        }
+
+        document.write(
+          `<div id='content'><div class='exercise'>Задание: подсчитать количество слов, длина которых больше 5, и<br />удалить пробелы, стоящие между первым и вторым словом.</div><div class='info'>Введённая строка:<div>${str}</div></div>`
+        );
+
+        let countOfSpaces = 0,
+          firstWord = "",
+          anotherPartOfStr = "";
+        for (let i = 0; i < str.length; i++) {
+          if (str[i] != " ") {
+            if (countOfSpaces == 0) {
+              firstWord += str[i];
+            } else {
+              anotherPartOfStr = str.slice(i);
+              str = firstWord + anotherPartOfStr;
+              break;
+            }
+          } else if (firstWord != "") {
+            countOfSpaces++;
+          }
+        }
+
+        document.write(
+          `<div class='info'>Количество слов, длина которых больше 5:<div>${countOfWords}</div></div><div class='info'>Преобразованная строка:<div>${str}</div></div></div>`
+        );
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise_3</title>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #content {
+        margin: 30px;
+        padding: 15px;
+        font-family: "Ubuntu", sans-serif;
+        background-color: #e7e7e7;
+        width: fit-content;
+        border-radius: 20px;
+        color: rgba(18, 18, 18, 95%);
+      }
+      .exercise {
+        font-size: 21px;
+        font-weight: 700;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .info {
+        font-size: 21px;
+        padding: 15px;
+        border-radius: 20px;
+        background-color: rgba(202, 202, 202, 80%);
+        margin-bottom: 10px;
+      }
+      .info > div {
+        font-weight: 700;
+        margin-top: 5px;
+      }
+      .info:last-child {
+        margin-bottom: 15px;
+      }
+    </style>
+    <script>
+      let latinAlphabet = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+      ];
+      let rusAlphabet = [
+        "а",
+        "б",
+        "в",
+        "г",
+        "д",
+        "е",
+        "ё",
+        "ж",
+        "з",
+        "и",
+        "й",
+        "к",
+        "л",
+        "м",
+        "н",
+        "о",
+        "п",
+        "р",
+        "с",
+        "т",
+        "у",
+        "ф",
+        "х",
+        "ц",
+        "ч",
+        "ш",
+        "щ",
+        "ъ",
+        "ы",
+        "ь",
+        "э",
+        "ю",
+        "я",
+      ];
+      let str,
+        encodedStr = "",
+        emptyLine,
+        isNum;
+
+      do {
+        emptyLine = false;
+        isNum = false;
+        str = prompt("Введите строку:", "");
+        try {
+          if (str == "") {
+            emptyLine = true;
+            throw new Error(
+              "Поле ввода не содержит значения. Необходимо ввести строку."
+            );
+          }
+          if (str == null) {
+            break;
+          }
+          for (let i = 0; i < str.length; i++) {
+            if (str[i] >= "0" && str[i] <= "9") {
+              isNum = true;
+              throw new Error(
+                "Строка содержит числа. Необходимо ввести строку без чисел."
+              );
+              break;
+            }
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      } while (emptyLine || isNum);
+
+      if (str == null) {
+        document.write("");
+      } else {
+        document.write(
+          `<div id='content'><div class='exercise'>Задание: написать простейшую программу шифрования<br />(программа каждую букву заменяет на следующую за<br />ней в алфавите).</div><div class='info'>Введённая строка:<div>${str}</div></div>`
+        );
+
+        if (/[a-zA-Z]/.test(str)) {
+          if (/[A-Z]/.test(str)) {
+            for (let k = 0; k < latinAlphabet.length; k++) {
+              latinAlphabet[k] = latinAlphabet[k].toUpperCase();
+            }
+            for (let i = 0; i < str.length; i++) {
+              if (
+                str[i] != " " &&
+                str[i] != "," &&
+                str[i] != "." &&
+                str[i] != "!" &&
+                str[i] != "?" &&
+                str[i] != ";"
+              ) {
+                for (let j = 0; j < latinAlphabet.length; j++) {
+                  if (str[i] == latinAlphabet[j]) {
+                    if (j == latinAlphabet.length - 1) {
+                      encodedStr +=
+                        latinAlphabet[j - (latinAlphabet.length - 1)];
+                    } else {
+                      encodedStr += latinAlphabet[j + 1];
+                      break;
+                    }
+                  }
+                }
+              } else {
+                switch (str[i]) {
+                  case " ":
+                    encodedStr += " ";
+                    break;
+                  case ",":
+                    encodedStr += ",";
+                    break;
+                  case ".":
+                    encodedStr += ".";
+                    break;
+                  case "!":
+                    encodedStr += "!";
+                    break;
+                  case "?":
+                    encodedStr += "?";
+                    break;
+                  case ";":
+                    encodedStr += ";";
+                    break;
+                }
+              }
+            }
+          } else {
+            for (let i = 0; i < str.length; i++) {
+              if (
+                str[i] != " " &&
+                str[i] != "," &&
+                str[i] != "." &&
+                str[i] != "!" &&
+                str[i] != "?" &&
+                str[i] != ";"
+              ) {
+                for (let j = 0; j < latinAlphabet.length; j++) {
+                  if (str[i] == latinAlphabet[j]) {
+                    if (j == latinAlphabet.length - 1) {
+                      encodedStr +=
+                        latinAlphabet[j - (latinAlphabet.length - 1)];
+                    } else {
+                      encodedStr += latinAlphabet[j + 1];
+                      break;
+                    }
+                  }
+                }
+              } else {
+                switch (str[i]) {
+                  case " ":
+                    encodedStr += " ";
+                    break;
+                  case ",":
+                    encodedStr += ",";
+                    break;
+                  case ".":
+                    encodedStr += ".";
+                    break;
+                  case "!":
+                    encodedStr += "!";
+                    break;
+                  case "?":
+                    encodedStr += "?";
+                    break;
+                  case ";":
+                    encodedStr += ";";
+                    break;
+                }
+              }
+            }
+          }
+        } else {
+          if (/[А-Я]/.test(str)) {
+            for (let k = 0; k < rusAlphabet.length; k++) {
+              rusAlphabet[k] = rusAlphabet[k].toUpperCase();
+            }
+            for (let i = 0; i < str.length; i++) {
+              if (
+                str[i] != " " &&
+                str[i] != "," &&
+                str[i] != "." &&
+                str[i] != "!" &&
+                str[i] != "?" &&
+                str[i] != ";"
+              ) {
+                for (let j = 0; j < rusAlphabet.length; j++) {
+                  if (str[i] == rusAlphabet[j]) {
+                    if (j == rusAlphabet.length - 1) {
+                      encodedStr += rusAlphabet[j - (rusAlphabet.length - 1)];
+                    } else {
+                      encodedStr += rusAlphabet[j + 1];
+                      break;
+                    }
+                  }
+                }
+              } else {
+                switch (str[i]) {
+                  case " ":
+                    encodedStr += " ";
+                    break;
+                  case ",":
+                    encodedStr += ",";
+                    break;
+                  case ".":
+                    encodedStr += ".";
+                    break;
+                  case "!":
+                    encodedStr += "!";
+                    break;
+                  case "?":
+                    encodedStr += "?";
+                    break;
+                  case ";":
+                    encodedStr += ";";
+                    break;
+                }
+              }
+            }
+          } else {
+            for (let i = 0; i < str.length; i++) {
+              if (
+                str[i] != " " &&
+                str[i] != "," &&
+                str[i] != "." &&
+                str[i] != "!" &&
+                str[i] != "?" &&
+                str[i] != ";"
+              ) {
+                for (let j = 0; j < rusAlphabet.length; j++) {
+                  if (str[i] == rusAlphabet[j]) {
+                    if (j == rusAlphabet.length - 1) {
+                      encodedStr += rusAlphabet[j - (rusAlphabet.length - 1)];
+                    } else {
+                      encodedStr += rusAlphabet[j + 1];
+                      break;
+                    }
+                  }
+                }
+              } else {
+                switch (str[i]) {
+                  case " ":
+                    encodedStr += " ";
+                    break;
+                  case ",":
+                    encodedStr += ",";
+                    break;
+                  case ".":
+                    encodedStr += ".";
+                    break;
+                  case "!":
+                    encodedStr += "!";
+                    break;
+                  case "?":
+                    encodedStr += "?";
+                    break;
+                  case ";":
+                    encodedStr += ";";
+                    break;
+                }
+              }
+            }
+          }
+        }
+
+        document.write(
+          `<div class='info'>Зашифрованная строка:<div>${encodedStr}</div></div></div>`
+        );
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise_1</title>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #content {
+        margin: 30px;
+        padding: 15px;
+        font-family: "Ubuntu", sans-serif;
+        background-color: #e7e7e7;
+        width: fit-content;
+        border-radius: 20px;
+        color: rgba(18, 18, 18, 95%);
+      }
+      .exercise {
+        font-size: 21px;
+        font-weight: 700;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .info {
+        font-size: 21px;
+        padding: 15px;
+        border-radius: 20px;
+        background-color: rgba(202, 202, 202, 80%);
+        margin-bottom: 10px;
+      }
+      .info > div {
+        font-weight: 700;
+        margin-top: 5px;
+      }
+      .info:last-child {
+        margin-bottom: 15px;
+      }
+    </style>
+    <script>
+      let str,
+        count = 0,
+        emptyLine;
+
+      do {
+        emptyLine = false;
+        str = prompt(
+          "Введите строку, содержащую в себе цифры и пары символов 'AC':",
+          ""
+        );
+        try {
+          if (str == "") {
+            emptyLine = true;
+            throw new Error(
+              "Поле ввода не содержит значения. Необходимо ввести строку."
+            );
+          }
+          if (str == null) {
+            break;
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      } while (emptyLine);
+
+      if (str == null) {
+        document.write("");
+      } else {
+        document.write(
+          `<div id='content'><div class='exercise'>Задание: после каждой цифры вставить такую же<br />цифру и подсчитать количество пар 'AC' в строке.</div><div class='info'>Введённая строка:<div>${str}</div></div>`
+        );
+        for (let i = 0; i < str.length; i++) {
+          for (let j = 0; j <= 9; j++) {
+            if (j.toString() == str[i]) {
+              strWithDigit = str.slice(0, i + 1) + j.toString();
+              strAfterDigit = str.slice(i + 1);
+              str = strWithDigit + strAfterDigit;
+              i++;
+              break;
+            }
+          }
+        }
+        for (let i = 0; i < str.length - 1; i++) {
+          if (str[i] + str[i + 1] == "AC" || str[i] + str[i + 1] == "АС") {
+            count++;
+          }
+        }
+        document.write(
+          `<div class='info'>Преобразованная строка:<div>${str}</div></div><div class='info'>Количество пар 'AC' в строке:<div>${count}</div></div></div>`
+        );
+      }
+    </script>
+  </body>
+</html>

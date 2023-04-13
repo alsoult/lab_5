@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise_4</title>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #content {
+        margin: 30px;
+        padding: 15px;
+        font-family: "Ubuntu", sans-serif;
+        background-color: #e7e7e7;
+        width: fit-content;
+        border-radius: 20px;
+        color: rgba(18, 18, 18, 95%);
+      }
+      .exercise {
+        font-size: 21px;
+        font-weight: 700;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .info {
+        font-size: 21px;
+        padding: 15px;
+        border-radius: 20px;
+        background-color: rgba(202, 202, 202, 80%);
+        margin-bottom: 10px;
+      }
+      .info > div {
+        font-weight: 700;
+        margin-top: 5px;
+      }
+      .info:last-child {
+        margin-bottom: 15px;
+      }
+    </style>
+    <script>
+      let str,
+        word = "",
+        newStr = "",
+        emptyLine,
+        isNum;
+
+      do {
+        emptyLine = false;
+        isNum = false;
+        str = prompt("Введите строку:", "");
+        try {
+          if (str == "") {
+            emptyLine = true;
+            throw new Error(
+              "Поле ввода не содержит значения. Необходимо ввести строку."
+            );
+          }
+          if (str == null) {
+            break;
+          }
+          for (let i = 0; i < str.length; i++) {
+            if (str[i] >= "0" && str[i] <= "9") {
+              isNum = true;
+              throw new Error(
+                "Строка содержит числа. Необходимо ввести строку без чисел."
+              );
+              break;
+            }
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      } while (emptyLine || isNum);
+
+      if (str == null) {
+        document.write("");
+      } else {
+        document.write(
+          `<div id='content'><div class='exercise'>Задание: написать программу, которая в каждом слове перемешивает<br />буквы местами за исключением первой и последней буквы слова.</div><div class='info'>Введённая строка:<div>${str}</div></div>`
+        );
+
+        for (let i = 0; i < str.length; i++) {
+          if (/[A-Z][А-Я]/.test(str[i])) {
+            str[i] = str[i].toUpperCase();
+          }
+          if (
+            str[i] != " " &&
+            str[i] != "," &&
+            str[i] != "." &&
+            str[i] != "!" &&
+            str[i] != "?" &&
+            str[i] != ";"
+          ) {
+            word += str[i];
+          } else {
+            if (word == "") {
+              newStr += " ";
+            } else {
+              if (word.length % 2 == 0) {
+                newStr += word[0];
+                for (let j = 1; j < word.length - 2; j += 2) {
+                  newStr += word[j + 1] + word[j];
+                }
+                newStr += word[word.length - 1];
+                switch (str[i]) {
+                  case " ":
+                    newStr += " ";
+                    break;
+                  case ",":
+                    newStr += ",";
+                    break;
+                  case ".":
+                    newStr += ".";
+                    break;
+                  case "!":
+                    newStr += "!";
+                    break;
+                  case "?":
+                    newStr += "?";
+                    break;
+                  case ";":
+                    newStr += ";";
+                    break;
+                }
+                word = "";
+              } else {
+                if (word.length == 1 || word.length == 3) {
+                  newStr += word;
+                } else {
+                  newStr += word[0];
+                  for (let j = 1; j <= word.length - 2; j++) {
+                    if (j == word.length - 2) {
+                      newStr += word[1];
+                    } else {
+                      newStr += word[j + 1];
+                    }
+                  }
+                  newStr += word[word.length - 1];
+                }
+                switch (str[i]) {
+                  case " ":
+                    newStr += " ";
+                    break;
+                  case ",":
+                    newStr += ",";
+                    break;
+                  case ".":
+                    newStr += ".";
+                    break;
+                  case "!":
+                    newStr += "!";
+                    break;
+                  case "?":
+                    newStr += "?";
+                    break;
+                  case ";":
+                    newStr += ";";
+                    break;
+                }
+                word = "";
+              }
+            }
+          }
+        }
+
+        if (
+          str[str.length - 1] != " " &&
+          str[str.length - 1] != "," &&
+          str[str.length - 1] != "." &&
+          str[str.length - 1] != "!" &&
+          str[str.length - 1] != "?" &&
+          str[str.length - 1] != ";"
+        ) {
+          if (word.length % 2 == 0) {
+            newStr += word[0];
+            for (let j = 1; j < word.length - 2; j += 2) {
+              newStr += word[j + 1] + word[j];
+            }
+            newStr += word[word.length - 1];
+            word = "";
+          } else {
+            if (word.length == 1 || word.length == 3) {
+              newStr += word;
+            } else {
+              newStr += word[0];
+              for (let j = 1; j <= word.length - 2; j++) {
+                if (j == word.length - 2) {
+                  newStr += word[1];
+                } else {
+                  newStr += word[j + 1];
+                }
+              }
+              newStr += word[word.length - 1];
+            }
+            word = "";
+          }
+        }
+
+        document.write(
+          `<div class='info'>Преобразованная строка:<div>${newStr}</div></div></div>`
+        );
+      }
+    </script>
+  </body>
+</html>
